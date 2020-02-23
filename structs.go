@@ -69,7 +69,7 @@ type VoiceInstance struct {
 	channelID  string
 	speaking   bool
 	pause      bool
-	stop       bool
+	Stop       bool
 	skip       bool
 	radioFlag  bool
 }
