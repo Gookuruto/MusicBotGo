@@ -7,13 +7,14 @@ import (
 	"github.com/boltdb/bolt"
 	"github.com/bwmarrin/discordgo"
 	"github.com/jonas747/dca"
+	//"gopkg.in/hraban/opus.v2"
 )
 
 type Options struct {
 	DiscordToken      string
 	DiscordStatus     string
-	DiscrodPrefix     string
-	DiscrodPurgeTime  int64
+	DiscordPrefix     string
+	DiscordPurgeTime  int64
 	DiscordPlayStatus bool
 	YoutubeToken      string
 }
@@ -26,7 +27,7 @@ type TimeDuration struct {
 }
 
 type Song struct {
-	ChannelId string
+	ChannelID string
 	User      string
 	ID        string
 	VidID     string
@@ -69,7 +70,7 @@ type VoiceInstance struct {
 	channelID  string
 	speaking   bool
 	pause      bool
-	Stop       bool
+	stop       bool
 	skip       bool
 	radioFlag  bool
 }

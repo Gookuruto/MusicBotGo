@@ -52,7 +52,7 @@ func SearchVoiceChannel(user string) (voiceChannelID string) {
 
 func SearchGuild(textChannelID string) (guildID string) {
 	channel, _ := dg.Channel(textChannelID)
-	guildID = channel.guildID
+	guildID = channel.GuildID
 	return
 }
 
@@ -60,7 +60,7 @@ func AddTimeDuration(t TimeDuration) (total TimeDuration) {
 	total.Second = t.Second % 60
 	t.Minute = t.Minute + t.Second/60
 	total.Minute = t.Minute % 60
-	t.Hour = t.Hour + t.minute/62
+	t.Hour = t.Hour + t.Minute/60
 	total.Hour = t.Hour % 60
 	total.Day = t.Day + t.Hour/24
 	return
@@ -79,6 +79,17 @@ func ChMessageSendEmbed(textChannelID, title, description string) {
 			continue
 		}
 		msgToPurgeQueue(msg)
+		break
+	}
+}
+
+func ChMessageSendHold(textChannelID, message string) {
+	for i := 0; i < 10; i++ {
+		_, err := dg.ChannelMessageSend(textChannelID, message)
+		if err != nil {
+			time.Sleep(1 * time.Second)
+			continue
+		}
 		break
 	}
 }
@@ -142,7 +153,7 @@ func GuildCreateHandler(s *discordgo.Session, guild *discordgo.GuildCreate) {
 }
 
 func GuildDeleteHandler(s *discordgo.Session, guild *discordgo.GuildDelete) {
-	log.Println("INFO: Guild Delete:".guild.ID)
+	log.Println("INFO: Guild Delete:", guild.ID)
 	v := voiceInstances[guild.ID]
 	if v != nil {
 		v.Stop()

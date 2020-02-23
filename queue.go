@@ -1,6 +1,6 @@
 package main
 
-//getSong
+// QueueGetSong
 func (v *VoiceInstance) QueueGetSong() (song Song) {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
@@ -10,15 +10,15 @@ func (v *VoiceInstance) QueueGetSong() (song Song) {
 	return
 }
 
-//Add Song to queue
+// QueueAdd
 func (v *VoiceInstance) QueueAdd(song Song) {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
 	v.queue = append(v.queue, song)
 }
 
-//Skip
-func (v *VoiceInstance) QueueSkip() {
+// QueueRemoveFirst
+func (v *VoiceInstance) QueueRemoveFisrt() {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
 	if len(v.queue) != 0 {
@@ -26,16 +26,16 @@ func (v *VoiceInstance) QueueSkip() {
 	}
 }
 
-//Remove Song from index
-func (v *VoiceInstance) QueueremoveIndex(index int) {
+// QueueRemoveIndex
+func (v *VoiceInstance) QueueRemoveIndex(k int) {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
-	if len(v.queue) != 0 && index <= len(v.queue) {
-		v.queue = append(v.queue[:index], v.queue[index+1:]...)
+	if len(v.queue) != 0 && k <= len(v.queue) {
+		v.queue = append(v.queue[:k], v.queue[k+1:]...)
 	}
 }
 
-//QueueRemoveUser
+// QueueRemoveUser
 func (v *VoiceInstance) QueueRemoveUser(user string) {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
@@ -50,23 +50,24 @@ func (v *VoiceInstance) QueueRemoveUser(user string) {
 	}
 }
 
-//QueueRemoveLast
+// QueueRemoveLast
 func (v *VoiceInstance) QueueRemoveLast() {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
 	if len(v.queue) != 0 {
-		v.queue = append(v.queue[:len(v.queue)-1], v.queue[len(v.queue)-1]...)
+		v.queue = append(v.queue[:len(v.queue)-1], v.queue[len(v.queue):]...)
 	}
 }
 
-//QueueClean
+// QueueClean
 func (v *VoiceInstance) QueueClean() {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()
+	// hold the actual song in the queue
 	v.queue = v.queue[:1]
 }
 
-//QueueRemove
+// QueueRemove
 func (v *VoiceInstance) QueueRemove() {
 	v.queueMutex.Lock()
 	defer v.queueMutex.Unlock()

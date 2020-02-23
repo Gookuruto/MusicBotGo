@@ -10,9 +10,15 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/google/google-api-go-client/googleapi/transport"
+	"github.com/rs/zerolog"
 	"github.com/rylio/ytdl"
 	"google.golang.org/api/youtube/v3"
 )
+
+var DefaultClient = &ytdl.Client{
+	HTTPClient: http.DefaultClient,
+	Logger:     zerolog.Nop(),
+}
 
 func getDuration(stringRawFull, stringRawOffset string) (stringRemain string) {
 	// stringRawFull format: P1DT3H45M2S or PT3H45M2S
@@ -122,7 +128,7 @@ func YoutubeFind(searchString string, v *VoiceInstance, m *discordgo.MessageCrea
 		return
 	}
 	format := vid.Formats.Extremes(ytdl.FormatAudioBitrateKey, true)[0]
-	videoURL, err := vid.GetDownloadURL(format)
+	videoURL, err := DefaultClient.GetDownloadURL(vid, format)
 	//log.Println(err)
 
 	videos := service.Videos.List("contentDetails").Id(vid.ID)

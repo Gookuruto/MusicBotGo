@@ -82,7 +82,7 @@ func LeaveReporter(v *VoiceInstance, m *discordgo.MessageCreate) {
 	ChMessageSend(m.ChannelID, "[**Music**] I left the voice channel!")
 }
 
-func PlayReporter(v *voiceInstance, m *discordgo.MessageCreate) {
+func PlayReporter(v *VoiceInstance, m *discordgo.MessageCreate) {
 	log.Println("INFO:", m.Author.Username, "send 'play'")
 	if v == nil {
 		log.Println("INFO: The bot is not joined in a voice channel")
