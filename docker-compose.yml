@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  musicbot:
+    build: .
+    image: musicbot-img
+    restart: always
+    volumes:
+      - ./bot.toml:/bot/bot.toml

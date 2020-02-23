@@ -1,0 +1,10 @@
+# Example file
+[discord]
+  token = "NjgxMTU3NTQyNDg2NzM2OTIx.XlKXag.YNesPXTV2kdQ0bKS0RoRTeVYh7M" # Token bot
+  status = "Music Bot | !help"
+  prefix = "!"
+  purgetime = 60
+  playstatus = false # Set 'true' if this bot run one server only
+
+[youtube]
+  token = "UIzRSyFyg75iDJbsKhaYk97UtgFriJjbo8uLH57"
